@@ -4,7 +4,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx', // Arquivo inicial do app
-  devtool: 'inline-source-map', // Facilita o debug
+
+  mode: 'development', // Aqui tem as opções development e production
+
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'), // Caminho e nome do arquivo de saída
+  },
 
   module: {
     rules: [
@@ -36,21 +42,6 @@ module.exports = {
     extensions: ['.js', '.jsx', '.tsx', '.ts'],
   },
 
-  devServer: {
-    historyApiFallback: true,
-    static: { directory: path.resolve(__dirname, './dist') },
-    open: true,
-    compress: true,
-    port: 3000,
-  },
-
-  mode: 'development', // Aqui tem as opções development e production
-
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'), // Caminho e nome do arquivo de saída
-  },
-
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -59,4 +50,13 @@ module.exports = {
       filename: 'index.html', // output file
     }),
   ],
+
+  devServer: {
+    open: true,
+    static: { directory: path.resolve(__dirname, './dist') },
+    compress: true,
+    port: 3000,
+  },
+
+  devtool: 'inline-source-map', // Facilita o debug
 };
